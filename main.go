@@ -1,7 +1,11 @@
 package main
 
-import "github.com/chasestarr/dataStructures/stack"
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/chasestarr/dataStructures/queue"
+	"github.com/chasestarr/dataStructures/stack"
+)
 
 func testStack() {
 	s := stack.Stack{}
@@ -14,6 +18,19 @@ func testStack() {
 	fmt.Println(s.Pop())
 }
 
+func testQueue() {
+	q := queue.Queue{}
+
+	q.Enqueue("Daffy")
+	q.Enqueue("Duck")
+	q.Print()
+	fmt.Println(q.Dequeue())
+	fmt.Println(q.Size())
+	fmt.Println(q.Dequeue())
+}
+
 func main() {
 	testStack()
+	fmt.Println("================")
+	testQueue()
 }
