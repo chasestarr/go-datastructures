@@ -8,11 +8,6 @@ type Tree struct {
 	Children []Tree
 }
 
-// add
-// contains
-// traverse
-// remove
-
 // Add tree as child of target tree
 func (t *Tree) Add(v interface{}) {
 	t.Children = append(t.Children, Tree{Value: v})
