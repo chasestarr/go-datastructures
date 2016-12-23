@@ -14,6 +14,12 @@ type Stack struct {
 	Storage []Element
 }
 
+// New Stack
+func New() *Stack {
+	s := Stack{Storage: []Element{}}
+	return &s
+}
+
 // Push items onto the stack
 func (s *Stack) Push(v interface{}) {
 	e := Element{Value: v}
