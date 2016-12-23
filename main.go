@@ -9,7 +9,7 @@ import (
 )
 
 func testStack() {
-	s := stack.Stack{}
+	s := stack.New()
 
 	s.Push("hello")
 	s.Push("world")
@@ -20,7 +20,7 @@ func testStack() {
 }
 
 func testQueue() {
-	q := queue.Queue{}
+	q := queue.New()
 
 	q.Enqueue("Daffy")
 	q.Enqueue("Duck")

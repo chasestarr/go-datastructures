@@ -25,7 +25,7 @@ func TestInt(t *testing.T) {
 
 	for i := 2; i >= 0; i-- {
 		if pop := s.Pop(); pop != values[i] {
-			t.Fatalf("stack string test failed actual: %d, expected: %d", pop, values[i])
+			t.Fatalf("stack int test failed actual: %d, expected: %d", pop, values[i])
 		}
 	}
 }

@@ -12,6 +12,11 @@ type Element struct {
 	Value interface{}
 }
 
+// New Queue
+func New() *Queue {
+	return &Queue{Storage: []Element{}}
+}
+
 // Enqueue item into queue
 func (q *Queue) Enqueue(v interface{}) {
 	e := Element{Value: v}
