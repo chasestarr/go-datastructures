@@ -15,4 +15,10 @@ func TestHash(t *testing.T) {
 	if h.Retrieve("dog") != "basset hound" {
 		t.Fatal("Hash Insert overwrite error, key: 'dog' should return: 'basset hound'")
 	}
+
+	h.Remove("dog")
+
+	if h.Retrieve("dog") == "basset hound" {
+		t.Fatal("Hash Remove error, key: 'dog' should have exist in hash")
+	}
 }

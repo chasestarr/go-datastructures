@@ -69,6 +69,6 @@ func (h *Hash) Remove(key string) {
 			break
 		}
 	}
-	p[pair] = p[len(p)-1]
-	p = p[:len(p)-1]
+	h.Buckets[index].Pairs[pair] = h.Buckets[index].Pairs[len(p)-1]
+	h.Buckets[index].Pairs = p[:len(p)-1]
 }
