@@ -1,6 +1,9 @@
 package hashTable
 
-import "hash/fnv"
+import (
+	"fmt"
+	"hash/fnv"
+)
 
 // hash key
 // insert
@@ -44,7 +47,9 @@ func (h *Hash) Insert(key string, value string) {
 
 	for _, p := range h.Buckets[index].Pairs {
 		if p.Key == key {
+			fmt.Println("same key")
 			p.Value = value
+			fmt.Println(p.Value)
 			return
 		}
 	}
