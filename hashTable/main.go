@@ -1,15 +1,6 @@
 package hashTable
 
-import (
-	"fmt"
-	"hash/fnv"
-)
-
-// hash key
-// insert
-// remove
-// retrieve
-// log
+import "hash/fnv"
 
 // Pair --> key: value pair
 type Pair struct {
@@ -45,11 +36,10 @@ func (h *Hash) Insert(key string, value string) {
 	index := hash(key, h.Limit)
 	pair := Pair{Key: key, Value: value}
 
-	for _, p := range h.Buckets[index].Pairs {
+	for i, p := range h.Buckets[index].Pairs {
 		if p.Key == key {
-			fmt.Println("same key")
-			p.Value = value
-			fmt.Println(p.Value)
+			// p.Value = value does not persist the change
+			h.Buckets[index].Pairs[i].Value = value
 			return
 		}
 	}

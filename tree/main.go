@@ -39,5 +39,13 @@ func (t *Tree) Traverse() {
 
 // Find and return tree with value v
 func (t *Tree) Find(v interface{}) *Tree {
-	// TODO
+	if t.Value == v {
+		return t
+	}
+
+	for _, c := range t.Children {
+		return c.Find(v)
+	}
+
+	return nil
 }
