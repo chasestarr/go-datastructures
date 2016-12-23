@@ -8,6 +8,11 @@ type Tree struct {
 	Children []Tree
 }
 
+// New Tree
+func New(v interface{}) *Tree {
+	return &Tree{Value: v}
+}
+
 // Add tree as child of target tree
 func (t *Tree) Add(v interface{}) {
 	t.Children = append(t.Children, Tree{Value: v})
@@ -39,13 +44,15 @@ func (t *Tree) Traverse() {
 
 // Find and return tree with value v
 func (t *Tree) Find(v interface{}) *Tree {
+	var output *Tree
+
 	if t.Value == v {
-		return t
+		output = t
 	}
 
-	for _, c := range t.Children {
-		return c.Find(v)
+	for i := 0; i < len(t.Children); i++ {
+		output = t.Children[i].Find(v)
 	}
 
-	return nil
+	return output
 }
