@@ -60,3 +60,33 @@ func (t *RBTree) newChild(value interface{}) *RBTree {
 func (t *RBTree) balance() {
 
 }
+
+func (t *RBTree) grandparent() *RBTree {
+	return t.parent.parent
+}
+
+func (t *RBTree) leftUncle() *RBTree {
+	return t.grandparent().left
+}
+
+func (t *RBTree) rightUncle() *RBTree {
+	return t.grandparent().right
+}
+
+func (t *RBTree) rotateGrandparentLeft() {
+
+}
+
+func (t *RBTree) rotateGrandparentRight() {
+
+}
+
+func (t *RBTree) root() *RBTree {
+	current := t
+
+	for current.parent != nil {
+		current = current.parent
+	}
+
+	return current
+}
