@@ -13,7 +13,7 @@ type RBTree struct {
 	less   comparator.Less
 }
 
-// New takes in a root interface and
+// New takes in a root empty interface value and
 // returns a red-black tree with that value
 func New(value interface{}, comparator comparator.Less) *RBTree {
 	return &RBTree{value: value, less: comparator, color: "black"}
@@ -58,7 +58,49 @@ func (t *RBTree) newChild(value interface{}) *RBTree {
 
 // balance
 func (t *RBTree) balance() {
+	for t.parent != nil && t.parent.color == "red" {
+		if t.isParentLeft() {
+			t = t.balanceLeft()
+		} else {
+			t = t.balanceRight()
+		}
+	}
 
+	t.root().color = "black"
+}
+
+func (t *RBTree) balanceLeft() *RBTree {
+	uncle := t.rightUncle()
+	if uncle != nil && uncle.color == "red" {
+		uncle.color = "black"
+		t.parent.color = "black"
+		t.grandparent().color = "red"
+		return t.grandparent()
+	} else if t.isLeft() {
+		t = t.parent
+		t.rotateLeft()
+		t.parent.color = "black"
+		t.grandparent().color = "red"
+		return t.grandparent().rotateLeft()
+	}
+	return t
+}
+
+func (t *RBTree) balanceRight() *RBTree {
+	uncle := t.leftUncle()
+	if uncle != nil && uncle.color == "red" {
+		uncle.color = "black"
+		t.parent.color = "black"
+		t.grandparent().color = "red"
+		return t.grandparent()
+	} else if !t.isLeft() {
+		t = t.parent
+		t.rotateRight()
+		t.parent.color = "black"
+		t.grandparent().color = "red"
+		return t.grandparent().rotateRight()
+	}
+	return t
 }
 
 func (t *RBTree) grandparent() *RBTree {
@@ -73,12 +115,26 @@ func (t *RBTree) rightUncle() *RBTree {
 	return t.grandparent().right
 }
 
-func (t *RBTree) rotateGrandparentLeft() {
+func (t *RBTree) rotateLeft() *RBTree {
 
 }
 
-func (t *RBTree) rotateGrandparentRight() {
+func (t *RBTree) rotateRight() *RBTree {
 
+}
+
+func (t *RBTree) isParentLeft() bool {
+	if t.grandparent() != nil && t.parent == t.grandparent().left {
+		return true
+	}
+	return false
+}
+
+func (t *RBTree) isLeft() bool {
+	if t.parent != nil && t == t.parent.left {
+		return true
+	}
+	return false
 }
 
 func (t *RBTree) root() *RBTree {
