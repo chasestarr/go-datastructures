@@ -76,12 +76,12 @@ func (t *RBTree) balanceLeft() *RBTree {
 		t.parent.color = "black"
 		t.grandparent().color = "red"
 		return t.grandparent()
-	} else if t.isLeft() {
+	} else if !t.isLeft() {
 		t = t.parent
 		t.rotateLeft()
 		t.parent.color = "black"
 		t.grandparent().color = "red"
-		return t.grandparent().rotateLeft()
+		t.grandparent().rotateRight()
 	}
 	return t
 }
@@ -93,12 +93,12 @@ func (t *RBTree) balanceRight() *RBTree {
 		t.parent.color = "black"
 		t.grandparent().color = "red"
 		return t.grandparent()
-	} else if !t.isLeft() {
+	} else if t.isLeft() {
 		t = t.parent
 		t.rotateRight()
 		t.parent.color = "black"
 		t.grandparent().color = "red"
-		return t.grandparent().rotateRight()
+		t.grandparent().rotateLeft()
 	}
 	return t
 }
@@ -115,12 +115,37 @@ func (t *RBTree) rightUncle() *RBTree {
 	return t.grandparent().right
 }
 
-func (t *RBTree) rotateLeft() *RBTree {
+func (t *RBTree) rotateLeft() {
+	y := t.right
 
+	t.right = y.left
+	if t.right != nil {
+		t.left.parent = t
+	}
+	y.parent = t.parent
+	if t.parent != nil && t.parent.left == t {
+		t.parent.left = y
+	} else if t.parent != nil && t.parent.right == t {
+		t.parent.right = y
+	}
+
+	y.left = t
+	t.parent = y
 }
 
-func (t *RBTree) rotateRight() *RBTree {
+func (t *RBTree) rotateRight() {
+	x := t.left
 
+	t.left = x.right
+	if t.left != nil {
+		t.right.parent = t
+	}
+	x.parent = t.parent
+	if t.parent != nil && t.parent.left == t {
+		x.parent.left = x
+	} else if t.parent != nil && t.parent.right == t {
+		x.parent.right = x
+	}
 }
 
 func (t *RBTree) isParentLeft() bool {
